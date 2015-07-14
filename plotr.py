@@ -2,30 +2,30 @@ import numpy as np
 from pylab import *
 import matplotlib.pyplot as plt
 import datetime as DT
-import plotly.plotly as py
+import matplotlib.dates as mdates
+import scipy
 
-#Creates a list of tuples from .csv file
-data= np.loadtxt('daily_count.csv', delimiter=',',
-         dtype={'names': ('date', 'time'),'formats': ('S10', 'S10')} )
+data= np.loadtxt('data2.csv', delimiter=',',
+         dtype={'names': ('date', 'session'),'formats': ('S10', 'i4')} )
 
-#Zips files to parse data
-dates, times = map(list, zip(*data))
-print dates, times
+dates, sessions = map(list, zip(*data))
+print dates, sessions
 
 x = [DT.datetime.strptime(date,"%m-%d-%y") for date in dates]
-y = [DT.datetime.strptime(time,"%H:%M") for time in times]
-
+y = [sessions]
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
+ax.xaxis_date()
 ax.grid()
+ax.fill_between(x, sessions, color='blue')
 
-
-plt.plot(x,y)
+# slants the x axis
+fig.autofmt_xdate()
+plt.plot(x,sessions)
 plt.xlabel('Date')
-plt.ylabel('Time')
-plt.title('Peak Times')
-
+plt.ylabel('Sessions')
+plt.title('Peak Usage')
 
 
 savefig('graph.png')
