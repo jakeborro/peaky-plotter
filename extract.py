@@ -1,5 +1,6 @@
 import csv
 
+#Extracts the important columns from the .csv into a new file
 with open("data.csv","rb") as source:
     readr = csv.reader(source)
     with open("data2.csv","wb") as result:
