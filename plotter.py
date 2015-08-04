@@ -9,12 +9,11 @@ import glob
 
 
 def main():
-  files = glob.glob('./*.history.csv')
+  files = glob.glob('./*.csv')
 
   for file in files:
     data = np.loadtxt(file, delimiter=',', dtype={'names': ('date', 'session'),'formats': ('S10', 'i4')} )
 
-    #Organizes 2-column spreadsheet
     dates, sessions = map(list, zip(*data))
     print dates, sessions
 
@@ -25,10 +24,10 @@ def main():
     axis = fig.add_subplot(111)
     axis.xaxis_date()
     axis.grid()
-    #Fills space under plotted line
+    #Fills space under plotted line with specified color
     axis.fill_between(x, sessions, color='blue')
 
-    # slants the x axis
+    #Slants the x axisfor aesthetics
     fig.autofmt_xdate()
     plt.plot(x,sessions)
     plt.xlabel('Date')
